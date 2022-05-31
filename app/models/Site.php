@@ -569,6 +569,33 @@ class Site extends CI_Model
         return false;
     }
 
+    public function getProductByExternalReference($id)
+    {
+        $q = $this->db->get_where('products', ['external_reference' => $id], 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return false;
+    }
+
+    public function getCategoryByName($name)
+    {
+        $q = $this->db->get_where('categories', ['name' => $name], 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return false;
+    } 
+
+    public function getUnityByName($name)
+    {
+        $q = $this->db->get_where('units', ['name' => $name], 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return false;
+    }
+
     public function getProductComboItems($pid, $warehouse_id = null)
     {
         $this->db->select('products.id as id, combo_items.item_code as code, combo_items.quantity as qty, products.name as name, products.type as type, combo_items.unit_price as unit_price, warehouses_products.quantity as quantity')
